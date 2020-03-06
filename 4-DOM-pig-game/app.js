@@ -41,6 +41,30 @@ document.querySelector('.btn-roll').addEventListener('click', function() {
     document.querySelector('#current-' + activePlayer).textContent = roundScore;
     } else {
     //next player
+    nextPlayer();
+    }
+});
+
+document.querySelector('.btn-hold').addEventListener('click', function () {
+    //add current score to global score
+    scores[activePlayer] += roundScore;
+
+    //update the UI
+    document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
+    //check if player won the game
+    if (scores[activePlayer] >= 15) {
+        document.querySelector('#name-' + activePlayer).textContent = 'Winner!';
+        document.querySelector('.dice').style.display = 'none';
+        document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
+        document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
+    } else {
+    //next plaver
+    nextPlayer();
+    }
+    
+});
+
+function nextPlayer() {
     activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
     roundScore = 0;
 
@@ -51,5 +75,4 @@ document.querySelector('.btn-roll').addEventListener('click', function() {
     document.querySelector('.player-1-panel').classList.toggle('active');
 
     document.querySelector('.dice').style.display = 'none';
-    }
-});
+}
